@@ -1,23 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+
+import TodoTable from "./components/TodoTable";
+import AddToDoForm from "./components/AddToDoForm";
 
 function App() {
+  const [showAddToDoForm, setShowAddToDoForm] = useState(false);
+  const [todos, setTodos] = useState([
+    { rowNum: 1, rowDesc: "Walk", rowAssign: "Abhilash" },
+    { rowNum: 2, rowDesc: "Run", rowAssign: "Bipul" },
+    { rowNum: 3, rowDesc: "Limp", rowAssign: "Atul" },
+  ]);
+  const addTodo = (description, assigned) => {
+    let rowNumber = 0;
+    if (todos.length > 0) {
+      rowNumber = todos[todos.length - 1].rowNum + 1;
+    } else {
+      rowNumber = 1;
+    }
+    const newTodo = {
+      rowNum: rowNumber,
+      rowDesc: description,
+      rowAssign: assigned,
+    };
+    setTodos(() => [...todos, newTodo]);
+  };
+  const deleteRow = (deleteRowNum) => {
+    const filteredList = todos.filter((data) => {
+      return data.rowNum !== deleteRowNum;
+    });
+    setTodos(filteredList);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="mt-5 container">
+      <div className="card">
+        <div className="card-header">Your Todos</div>
+
+        <div className="card-body">
+          <TodoTable todos={todos} deleteRow={deleteRow} />;
+          <button
+            className="btn btn-primary"
+            onClick={() => setShowAddToDoForm(!showAddToDoForm)}
+          >
+            {showAddToDoForm ? "Close New ToDo" : "New ToDo"}
+          </button>
+          {showAddToDoForm && <AddToDoForm addTodo={addTodo} />}
+        </div>
+      </div>
     </div>
   );
 }
