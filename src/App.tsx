@@ -4,14 +4,14 @@ import React, { useState } from "react";
 import TodoTable from "./components/TodoTable";
 import AddToDoForm from "./components/AddToDoForm";
 
-function App() {
+const App = () => {
   const [showAddToDoForm, setShowAddToDoForm] = useState(false);
   const [todos, setTodos] = useState([
     { rowNum: 1, rowDesc: "Walk", rowAssign: "Abhilash" },
     { rowNum: 2, rowDesc: "Run", rowAssign: "Bipul" },
     { rowNum: 3, rowDesc: "Limp", rowAssign: "Atul" },
   ]);
-  const addTodo = (description, assigned) => {
+  const addTodo = (description: string, assigned: string) => {
     let rowNumber = 0;
     if (todos.length > 0) {
       rowNumber = todos[todos.length - 1].rowNum + 1;
@@ -25,7 +25,7 @@ function App() {
     };
     setTodos(() => [...todos, newTodo]);
   };
-  const deleteRow = (deleteRowNum) => {
+  const deleteRow = (deleteRowNum: number) => {
     const filteredList = todos.filter((data) => {
       return data.rowNum !== deleteRowNum;
     });
@@ -49,6 +49,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;

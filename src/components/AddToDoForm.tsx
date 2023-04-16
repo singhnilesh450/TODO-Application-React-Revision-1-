@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-function AddToDoForm(props) {
+const AddToDoForm: React.FC<{ addTodo: Function }> = (props) => {
   const [desc, setDesc] = useState("");
   const [assign, setAssign] = useState("");
-  const onAssign = (event) => {
+  const onAssign = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAssign(event.target.value);
   };
-  const onDesc = (event) => {
+  const onDesc = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDesc(event.target.value);
   };
   const submitToDo = () => {
@@ -33,8 +33,8 @@ function AddToDoForm(props) {
           <label className="form-label">Assigned</label>
           <textarea
             className="form-control"
-            onChange={onAssign}
             required
+            onChange={onAssign}
             value={assign}
           ></textarea>
         </div>
@@ -44,6 +44,6 @@ function AddToDoForm(props) {
       </form>
     </div>
   );
-}
+};
 
 export default AddToDoForm;
